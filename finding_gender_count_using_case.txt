@@ -1,0 +1,21 @@
+CREATE TABLE CityGender (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    city VARCHAR(50),
+    gender CHAR(1)
+);
+
+
+INSERT INTO CityGender (city, gender) VALUES 
+('Delhi', 'F'),
+('Chennai', 'M'),
+('Mumbai', 'M'),
+('Delhi', 'M'),
+('Delhi', 'M'),
+('Mumbai', 'F'),
+('Chennai', 'F'),
+('Chennai', 'F');
+
+select city, sum(CASE when GENDER='M' THEN 1 END) AS TOTAL_MALE, 
+sum(case when gender='F' THEN 1 END) AS TOTAL_FEMALE,COUNT(*) AS TOTAL_GENDER
+ from citygender
+ GROUP BY CITY;

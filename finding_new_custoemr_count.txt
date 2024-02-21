@@ -1,0 +1,24 @@
+create database ganga;
+use ganga;
+
+drop table route;
+
+CREATE TABLE Route (
+    id int,
+    source VARCHAR(50),
+    destination VARCHAR(50)
+);
+
+INSERT INTO Route (id,source,destination) VALUES 
+( 1,'Bangalore', 'Mumbai'),
+(1,'Mumbai', 'Delhi'),
+(2,'Bangalore', 'Chennai'),
+(2,'Chennai', 'Hyderabad'),
+ (3,'Chennai', 'Hyderabad'),
+ (3,'hyderabad', 'Goa');
+
+select O.ID,O.SOURCE,O.DESTINATION from route O inner join 
+route D
+ON O.DESTINATION=D.SOURCE
+AND O.ID=D.ID
+
