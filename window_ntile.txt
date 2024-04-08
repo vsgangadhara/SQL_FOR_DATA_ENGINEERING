@@ -1,0 +1,6 @@
+SELECT 
+    name, 
+    age, 
+    NTILE(4) OVER (ORDER BY age) AS quartile
+FROM 
+    employees;

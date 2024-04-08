@@ -1,0 +1,38 @@
+MERGE INTO customer_dimension AS target
+USING source_customer_data AS source
+ON (target.customer_id = source.customer_id)
+
+-- When the customer exists in both source and target tables, and there are changes in customer data
+WHEN MATCHED AND (
+    target.customer_name != source.customer_name OR
+    target.customer_email != source.customer_email OR
+    target.customer_phone != source.customer_phone
+) THEN
+    UPDATE SET
+        target.valid_to_date = CURRENT_DATE, -- End date for the current record
+        target.is_current = FALSE
+
+    -- Inserting new record with updated data
+    INSERT (customer_id, customer_name, customer_email, customer_phone, valid_from_date, valid_to_date, is_current)
+    VALUES (
+        source.customer_id,
+        source.customer_name,
+        source.customer_email,
+        source.customer_phone,
+        CURRENT_DATE, -- Assuming today's date as the effective date
+        '9999-12-31', -- End date for the new record
+        TRUE
+    )
+
+-- When the customer exists in source but not in target
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT (customer_id, customer_name, customer_email, customer_phone, valid_from_date, valid_to_date, is_current)
+    VALUES (
+        source.customer_id,
+        source.customer_name,
+        source.customer_email,
+        source.customer_phone,
+        CURRENT_DATE, -- Assuming today's date as the effective date
+        '9999-12-31', -- End date for the new record
+        TRUE
+    );

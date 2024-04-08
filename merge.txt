@@ -1,0 +1,10 @@
+MERGE INTO Employees AS target
+USING Employees_Staging AS source
+ON target.EmployeeID = source.EmployeeID
+WHEN MATCHED THEN
+    UPDATE SET target.EmployeeName = source.EmployeeName, target.Department = source.Department
+WHEN NOT MATCHED THEN
+    INSERT (EmployeeID, EmployeeName, Department)
+    VALUES (source.EmployeeID, source.EmployeeName, source.Department)
+WHEN NOT MATCHED BY SOURCE THEN
+    DELETE;

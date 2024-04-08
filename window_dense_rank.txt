@@ -1,0 +1,6 @@
+SELECT 
+    name, 
+    age, 
+    DENSE_RANK() OVER (ORDER BY age) AS dense_rank
+FROM 
+    employees;

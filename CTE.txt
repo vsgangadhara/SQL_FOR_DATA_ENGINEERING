@@ -1,0 +1,8 @@
+WITH SalesPerRegion AS (
+    SELECT Region, SUM(SalesAmount) AS TotalSales
+    FROM Sales
+    GROUP BY Region
+)
+SELECT Region, TotalSales
+FROM SalesPerRegion
+WHERE TotalSales > 100000;

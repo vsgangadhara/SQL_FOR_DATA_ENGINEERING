@@ -1,0 +1,29 @@
+------------------RANK------------------
+SELECT ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNum, EmployeeID, Salary
+FROM Employees;
+
+-----------------DENSE RANK------------------
+SELECT DENSE_RANK() OVER (ORDER BY Revenue DESC) AS DenseRank, ProductID, Revenue
+FROM Sales;
+
+
+-----------------ROW_NUMBER------------------
+
+SELECT ROW_NUMBER() OVER (ORDER BY Revenue DESC) AS DenseRank, ProductID, Revenue
+FROM Sales;
+
+
+-----------------LEAD,LAG--------------------------
+
+SELECT CustomerID, OrderDate,
+       LEAD(OrderDate, 1) OVER (ORDER BY OrderDate) AS NextOrderDate, LAG(ORDERDATE,1,0) AS PREVIOUS_RECORD
+FROM Orders;
+
+-----------------NTILE---------------------------
+SELECT NTILE(4) OVER (ORDER BY SalesAmount DESC) AS Quartile, CustomerID, SalesAmount
+FROM Orders;
+
+--------------------running total
+
+SELECT SUM(SALARY) OVER(PARTITION BY DEPARTMENT_ID ORDER BY DATE) AS running total
+from emp;

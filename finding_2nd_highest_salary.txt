@@ -1,0 +1,36 @@
+-------Using subquery:-------------
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+SELECT MAX(salary) AS second_highest_salary
+FROM employees
+WHERE salary NOT IN (SELECT MAX(salary) FROM employees);
+
+------------Using limit:------------------
+
+SELECT DISTINCT salary
+FROM employees
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+------------Using dense rank:-----------------
+
+SELECT salary
+FROM (
+    SELECT salary, DENSE_RANK() OVER (ORDER BY salary DESC) AS salary_rank
+    FROM employees
+) ranked_salaries
+WHERE salary_rank = 2;
+
+
+--------------With correlated sub query:-------------
+
+SELECT SALARY FROM EMPLOYEE E1 WHERE N-1=(SELECT COUNT(DISTINCT SALARY) FROM EMPLOYEE E2 WHERE E2.SALARY>E.SAL)
+
+
+
+
+------------departmentwise 2nd highest salary--------------------
+
+SELECT * FROM (SELECT EMP.*,DENSE_RANK() OVER(PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) AS RN FROM EMP)A WHERE RN=2

@@ -1,0 +1,7 @@
+SELECT 
+    name, 
+    age, 
+    LEAD(age) OVER (ORDER BY age) AS next_age,
+    LAG(age) OVER (ORDER BY age) AS previous_age
+FROM 
+    employees;

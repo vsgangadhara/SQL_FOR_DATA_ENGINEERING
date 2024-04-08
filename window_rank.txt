@@ -1,0 +1,6 @@
+SELECT 
+    name, 
+    age, 
+    RANK() OVER (ORDER BY age) AS rank
+FROM 
+    employees;

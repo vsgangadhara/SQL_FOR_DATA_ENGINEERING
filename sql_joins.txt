@@ -1,0 +1,28 @@
+
+--------INNER JOIN---------------
+SELECT Orders.OrderID, Customers.CustomerName
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID;
+
+--------LEFT JOIN-------------------
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+-------RIGHT JOIN------------------------
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+RIGHT JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+
+-------FULL JOIN-------------------------
+
+SELECT Customers.CustomerName, Orders.OrderID
+FROM Customers
+FULL JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+
+--------SELF JOIN------------------------
+
+SELECT e1.EmployeeName, e2.EmployeeName AS Manager
+FROM Employees e1
+JOIN Employees e2 ON e1.ManagerID = e2.EmployeeID;
